@@ -20,10 +20,10 @@ export class BlackholesService {
     return this.blackholesRepository.findOneBy({ id });
   }
 
-  // create(blackhole: Blackhole): Promise<Blackhole> {
-  //   return this.blackholesRepository.save(blackhole);
-  // }
-  //
+  create(blackhole: Blackhole): Promise<Blackhole> {
+    return this.blackholesRepository.save(blackhole);
+  }
+
   // async update(id: number, blackhole: Blackhole): Promise<Blackhole> {
   //   await this.blackholesRepository.update(id, blackhole);
   //   return this.findOne(id);
