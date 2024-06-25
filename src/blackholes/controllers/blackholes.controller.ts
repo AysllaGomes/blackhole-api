@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  // Delete,
+  Delete,
   Get,
   Param,
   Post,
@@ -39,8 +39,8 @@ export class BlackholesController {
     return this.blackholesService.update(id, blackhole);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: number): Promise<void> {
-  //   return this.blackholesService.remove(id);
-  // }
+  @Delete(':id')
+  remove(@Param('id') id: number): Promise<void> {
+    return this.blackholesService.remove(id);
+  }
 }

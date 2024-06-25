@@ -29,7 +29,7 @@ export class BlackholesService {
     return this.findOne(id);
   }
 
-  // async remove(id: number): Promise<void> {
-  //   await this.blackholesRepository.delete(id);
-  // }
+  async remove(id: number): Promise<void> {
+    await this.blackholesRepository.delete(id);
+  }
 }
