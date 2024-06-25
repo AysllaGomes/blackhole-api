@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MulterModule } from '@nestjs/platform-express';
 
 import { AppService } from '../services/app.service';
 
@@ -18,6 +19,9 @@ import { BlackholesModule } from '../../blackholes/modules/blackholes.module';
       synchronize: true,
     }),
     BlackholesModule,
+    MulterModule.register({
+      dest: '../../../uploads',
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

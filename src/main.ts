@@ -12,9 +12,10 @@ async function bootstrap(): Promise<void> {
   const config = new DocumentBuilder()
     .setTitle('Blackhole API')
     .setDescription('The Blackhole API description')
-    .setVersion('1.0')
+    .setVersion(environment.app.version)
     .addTag('blackholes')
     .build();
+
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 

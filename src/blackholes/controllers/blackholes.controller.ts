@@ -6,8 +6,14 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
+import { extname } from 'path';
+import { diskStorage } from 'multer';
 
 import { Blackhole } from '../entities/blackhole.entity';
 
@@ -56,5 +62,29 @@ export class BlackholesController {
   @ApiResponse({ status: 404, description: 'Blackhole not found.' })
   remove(@Param('id') id: number): Promise<void> {
     return this.blackholesService.remove(id);
+  }
+
+  @Post('upload')
+  @ApiOperation({ summary: 'Upload an image for a blackhole' })
+  @ApiResponse({ status: 201, description: 'The uploaded image file.' })
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: '../../../uploads',
+        filename: (request, file, callback) => {
+          const randomName: string = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          return callback(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: Blackhole,
+  ): Promise<Blackhole> {
+    return this.blackholesService.saveImageFilename(body.id, file.filename);
   }
 }

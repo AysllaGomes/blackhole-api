@@ -37,4 +37,11 @@ export class Blackhole {
     description: 'A description of the blackhole.',
   })
   description: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({
+    example: 'blackhole-image.jpg',
+    description: 'Filename of the associated image.',
+  })
+  imageFilename: string;
 }

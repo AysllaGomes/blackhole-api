@@ -32,4 +32,14 @@ export class BlackholesService {
   async remove(id: number): Promise<void> {
     await this.blackholesRepository.delete(id);
   }
+
+  async saveImageFilename(id: number, filename: string): Promise<Blackhole> {
+    const blackhole: Blackhole = await this.findOne(id);
+    if (!blackhole) {
+      throw new Error('Blackhole not found');
+    }
+
+    blackhole.imageFilename = filename;
+    return this.blackholesRepository.save(blackhole);
+  }
 }
