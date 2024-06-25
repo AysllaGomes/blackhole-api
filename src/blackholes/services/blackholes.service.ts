@@ -24,11 +24,11 @@ export class BlackholesService {
     return this.blackholesRepository.save(blackhole);
   }
 
-  // async update(id: number, blackhole: Blackhole): Promise<Blackhole> {
-  //   await this.blackholesRepository.update(id, blackhole);
-  //   return this.findOne(id);
-  // }
-  //
+  async update(id: number, blackhole: Blackhole): Promise<Blackhole> {
+    await this.blackholesRepository.update(id, blackhole);
+    return this.findOne(id);
+  }
+
   // async remove(id: number): Promise<void> {
   //   await this.blackholesRepository.delete(id);
   // }

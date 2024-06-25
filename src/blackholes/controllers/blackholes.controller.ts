@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Post,
-  // Put,
+  Put,
 } from '@nestjs/common';
 
 import { Blackhole } from '../entities/blackhole.entity';
@@ -31,14 +31,14 @@ export class BlackholesController {
     return this.blackholesService.create(blackhole);
   }
 
-  // @Put(':id')
-  // update(
-  //   @Param('id') id: number,
-  //   @Body() blackhole: Blackhole,
-  // ): Promise<Blackhole> {
-  //   return this.blackholesService.update(id, blackhole);
-  // }
-  //
+  @Put(':id')
+  update(
+    @Param('id') id: number,
+    @Body() blackhole: Blackhole,
+  ): Promise<Blackhole> {
+    return this.blackholesService.update(id, blackhole);
+  }
+
   // @Delete(':id')
   // remove(@Param('id') id: number): Promise<void> {
   //   return this.blackholesService.remove(id);
