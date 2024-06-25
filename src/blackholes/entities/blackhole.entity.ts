@@ -40,8 +40,9 @@ export class Blackhole {
 
   @Column({ nullable: true })
   @ApiProperty({
-    example: 'blackhole-image.jpg',
-    description: 'Filename of the associated image.',
+    type: 'string',
+    format: 'binary',
+    description: 'The image file of the blackhole.',
   })
   imageFilename: string;
 }

@@ -9,8 +9,14 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { extname } from 'path';
 import { diskStorage } from 'multer';
@@ -18,6 +24,8 @@ import { diskStorage } from 'multer';
 import { Blackhole } from '../entities/blackhole.entity';
 
 import { BlackholesService } from '../services/blackholes.service';
+
+import { CreateUploadBlackholeDto } from '../dto/create-upload-blackhole.dto';
 
 @ApiTags('blackholes')
 @Controller('blackholes')
@@ -67,6 +75,11 @@ export class BlackholesController {
   @Post('upload')
   @ApiOperation({ summary: 'Upload an image for a blackhole' })
   @ApiResponse({ status: 201, description: 'The uploaded image file.' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Blackhole data with image',
+    type: CreateUploadBlackholeDto,
+  })
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
@@ -83,7 +96,7 @@ export class BlackholesController {
   )
   async uploadImage(
     @UploadedFile() file: Express.Multer.File,
-    @Body() body: Blackhole,
+    @Body() body: CreateUploadBlackholeDto,
   ): Promise<Blackhole> {
     return this.blackholesService.saveImageFilename(body.id, file.filename);
   }
