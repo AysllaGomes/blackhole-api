@@ -16,10 +16,10 @@ export class BlackholesService {
     return this.blackholesRepository.find();
   }
 
-  // findOne(id: number): Promise<Blackhole> {
-  //   return this.blackholesRepository.findOneBy({ id });
-  // }
-  //
+  findOne(id: number): Promise<Blackhole> {
+    return this.blackholesRepository.findOneBy({ id });
+  }
+
   // create(blackhole: Blackhole): Promise<Blackhole> {
   //   return this.blackholesRepository.save(blackhole);
   // }

@@ -3,7 +3,7 @@ import {
   Controller,
   // Delete,
   Get,
-  // Param,
+  Param,
   // Post,
   // Put,
 } from '@nestjs/common';
@@ -21,11 +21,11 @@ export class BlackholesController {
     return this.blackholesService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: number): Promise<Blackhole> {
-  //   return this.blackholesService.findOne(id);
-  // }
-  //
+  @Get(':id')
+  findOne(@Param('id') id: number): Promise<Blackhole> {
+    return this.blackholesService.findOne(id);
+  }
+
   // @Post()
   // create(@Body() blackhole: Blackhole): Promise<Blackhole> {
   //   return this.blackholesService.create(blackhole);
