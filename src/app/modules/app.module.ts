@@ -8,6 +8,7 @@ import { AppController } from '../controllers/app.controller';
 
 import { Blackhole } from '../../blackholes/entities/blackhole.entity';
 
+import { AstronomyModule } from '../../astronomy/modules/astronomy.module';
 import { BlackholesModule } from '../../blackholes/modules/blackholes.module';
 
 @Module({
@@ -18,10 +19,11 @@ import { BlackholesModule } from '../../blackholes/modules/blackholes.module';
       entities: [Blackhole],
       synchronize: true,
     }),
-    BlackholesModule,
     MulterModule.register({
       dest: '../../../uploads',
     }),
+    AstronomyModule,
+    BlackholesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
