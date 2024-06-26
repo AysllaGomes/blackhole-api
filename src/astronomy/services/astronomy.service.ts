@@ -18,12 +18,38 @@ export class AstronomyService {
     };
   }
 
-  async getPlanetaryPositions(): Promise<any> {
-    const url: string = `${this.baseUrl}/bodies/positions`;
-    const response = await firstValueFrom(
-      this.httpService.get(url, { headers: this.getHeaders() }),
-    );
-    return response.data;
+  async getPlanetaryPositions(params: {
+    longitude: number;
+    latitude: number;
+    elevation: number;
+    from_date: string;
+    to_date: string;
+    time: string;
+  }): Promise<any> {
+    try {
+      const { longitude, latitude, elevation, from_date, to_date, time } =
+        params;
+
+      const url: string = `${this.baseUrl}/bodies/positions?
+        longitude=${longitude}
+        &latitude=${latitude}
+        &elevation=${elevation}
+        &from_date=${from_date}
+        &to_date=${to_date}
+        &time=${time}`;
+
+      const config = {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`${this.appId}:${this.appSecret}`).toString('base64')}`,
+        },
+      };
+
+      const response = await firstValueFrom(this.httpService.get(url, config));
+
+      return response.data;
+    } catch (error) {
+      throw error.message;
+    }
   }
 
   async getStarChart(): Promise<any> {
