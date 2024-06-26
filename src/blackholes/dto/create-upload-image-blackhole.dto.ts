@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUploadBlackholeDto {
+export class CreateUploadImageBlackholeDto {
   @ApiProperty({
     type: 'number',
     description: 'The unique identifier of the blackhole.',

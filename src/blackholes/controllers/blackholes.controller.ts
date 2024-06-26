@@ -25,7 +25,8 @@ import { Blackhole } from '../entities/blackhole.entity';
 
 import { BlackholesService } from '../services/blackholes.service';
 
-import { CreateUploadBlackholeDto } from '../dto/create-upload-blackhole.dto';
+import { CreateBlackholeDto } from '../dto/create-blackhole.dto';
+import { CreateUploadImageBlackholeDto } from '../dto/create-upload-image-blackhole.dto';
 
 @ApiTags('blackholes')
 @Controller('blackholes')
@@ -50,8 +51,8 @@ export class BlackholesController {
   @Post()
   @ApiOperation({ summary: 'Create a new blackhole' })
   @ApiResponse({ status: 201, description: 'The created blackhole.' })
-  create(@Body() blackhole: Blackhole): Promise<Blackhole> {
-    return this.blackholesService.create(blackhole);
+  create(@Body() createBlackholeDto: CreateBlackholeDto): Promise<Blackhole> {
+    return this.blackholesService.create(createBlackholeDto);
   }
 
   @Put(':id')
@@ -78,7 +79,7 @@ export class BlackholesController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'Blackhole data with image',
-    type: CreateUploadBlackholeDto,
+    type: CreateUploadImageBlackholeDto,
   })
   @UseInterceptors(
     FileInterceptor('image', {
@@ -96,7 +97,7 @@ export class BlackholesController {
   )
   async uploadImage(
     @UploadedFile() file: Express.Multer.File,
-    @Body() body: CreateUploadBlackholeDto,
+    @Body() body: CreateUploadImageBlackholeDto,
   ): Promise<Blackhole> {
     return this.blackholesService.saveImageFilename(body.id, file.filename);
   }

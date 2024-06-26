@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Blackhole } from '../entities/blackhole.entity';
 
+import { CreateBlackholeDto } from '../dto/create-blackhole.dto';
+
 @Injectable()
 export class BlackholesService {
   constructor(
@@ -20,7 +22,9 @@ export class BlackholesService {
     return this.blackholesRepository.findOneBy({ id });
   }
 
-  create(blackhole: Blackhole): Promise<Blackhole> {
+  create(createBlackhole: CreateBlackholeDto): Promise<Blackhole> {
+    const blackhole: Blackhole =
+      this.blackholesRepository.create(createBlackhole);
     return this.blackholesRepository.save(blackhole);
   }
 
