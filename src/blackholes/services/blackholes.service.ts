@@ -11,7 +11,7 @@ import { CreateBlackholeDto } from '../dto/create-blackhole.dto';
 export class BlackholesService {
   constructor(
     @InjectRepository(Blackhole)
-    private blackholesRepository: Repository<Blackhole>,
+    protected blackholesRepository: Repository<Blackhole>,
   ) {}
 
   findAll(): Promise<Blackhole[]> {

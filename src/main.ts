@@ -9,6 +9,8 @@ import { AppModule } from './app/modules/app.module';
 async function bootstrap(): Promise<void> {
   const app: INestApplication<AppModule> = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Blackhole API')
     .setDescription('The Blackhole API description')
